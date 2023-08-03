@@ -1,7 +1,7 @@
 {
-  "homepage": "http://mysrn.github.io",
+  "homepage": "https://mysrn.github.io",
   "name": "test-fe-agile-technica",
-  "private": false,
+  "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
