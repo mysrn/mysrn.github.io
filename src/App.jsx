@@ -35,7 +35,7 @@ function App() {
   const filteredData = selectedRegion
     ? countries.filter((item) => item.region === selectedRegion)
     : countries;
-
+    const uniqueRegions = [...new Set(countries.map(option => option.region))];
   return (
     <div className="App">
       <h1>Informasi Negara</h1>
@@ -51,12 +51,12 @@ function App() {
               Region
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              {countries.map((option, index) => (
+              {uniqueRegions.map((region, index) => (
                 <Dropdown.Item
                   key={index}
-                  eventKey={option.region}
+                  eventKey={region}
                 >
-                  {option.region}
+                  {region}
                 </Dropdown.Item>
               ))}
             </Dropdown.Menu>
