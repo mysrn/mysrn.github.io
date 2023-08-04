@@ -23,10 +23,10 @@ function App() {
   }, []);
 
   const [showModal, setShowModal] = useState(false);
-  const [selectedImage, setSelectedImage] = useState('');
+  const [selectedItem, setSelectedItem] = useState('');
   const [selectedRegion, setSelectRegion] = useState('');
-  const handleImageClick = (imageSrc) => {
-    setSelectedImage(imageSrc);
+  const handleImageClick = (item) => {
+    setSelectedItem(item);
     setShowModal(true);
   };
   const handleRegion = (value) => {
@@ -70,32 +70,49 @@ function App() {
                   variant="top" 
                   src={item.flags.svg}
                   style={{ width: '100%', height: '280px', cursor:'pointer' }}
-                  onClick={() => handleImageClick(item.flags.svg)}/>
+                  onClick={() => handleImageClick(item)}/>
                 <Card.Body>
                   <Card.Title>Country Name : {item.name.common}</Card.Title>
-                  <Card.Text>
-                    Region : {item.region}
-                  </Card.Text>
-                  <Card.Text className="text-muted">
-                    Population : {item.population}
-                  </Card.Text>
                 </Card.Body>
               </Card>
             </div>
           ))}
         </Row>
         <Modal show={showModal} onHide={() => setShowModal(false)}>
-          <Modal.Body className="text-center">
-            <img 
-              src={selectedImage} 
-              alt="Enlarged" 
-              style={{ maxWidth: '100%', maxHeight: '100%' }} />
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={() => setShowModal(false)}>
-              Close
-            </Button>
-          </Modal.Footer>
+        {selectedItem && (
+          <React.Fragment>
+            <Modal.Header closeButton>
+              <Modal.Title>{selectedItem.name.common}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body className="text-center">
+              <img
+                src={selectedItem.flags.svg}
+                alt="Enlarged"
+                style={{ maxWidth: '100%', maxHeight: '100%' }}
+              />
+              <h4>Region: {selectedItem.region}</h4>
+              <p>Sub Region : {selectedItem.subregion}</p>
+              <p>Population: {selectedItem.population}</p>
+              <p>
+                Location : 
+                <a href={selectedItem.maps.googleMaps} target="_blank" rel="noopener noreferrer">
+                  View on Google Maps</a>
+              </p>
+              <p>Currency : &nbsp;
+                {Object.entries(selectedItem.currencies).map(([code, currency]) => (
+                  <span key={code}>
+                    {currency.name} ({currency.symbol})
+                  </span>
+                ))}
+              </p>
+              <p>Languages : &nbsp;
+                {Object.entries(selectedItem.languages).map(([code, language]) => (
+                  <span key={code}>{language} </span>
+                ))}
+              </p>
+            </Modal.Body>
+          </React.Fragment>
+        )}
         </Modal>
       </div>
     </div>
