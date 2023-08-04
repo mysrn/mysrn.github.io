@@ -12,7 +12,7 @@ export default defineConfig(({command}) => {
   }
 
   if(command !== 'dev') 
-    config.base = '/mysrn.github.io/test-fe-agile-technica/'
+    config.base = '/test-fe-agile-technica/'
 
   return config
   
